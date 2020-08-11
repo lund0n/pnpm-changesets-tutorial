@@ -1,0 +1,19 @@
+{
+  "name": "@bridge/simple",
+  "version": "0.0.0",
+  "description": "A simple module",
+  "main": "src/index.js",
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "registry": "http://localhost:4873"
+  },
+  "license": "UNLICENSED",
+  "prettier": {
+    "proseWrap": "always",
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  }
+}
