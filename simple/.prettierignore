@@ -1,2 +1,6 @@
+*.log*
 .*ignore
-.npmrc
+.*rc
+node_modules
+.idea
+.vscode
