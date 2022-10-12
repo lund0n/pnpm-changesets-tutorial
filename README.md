@@ -24,9 +24,11 @@ npm adduser --registry http://localhost:4873
 
 Install `pnpm`:
 
-```bash
-npm i -g pnpm
-```
+There are two ways that you can install `pnpm` and make it available in your project.
+
+1. If you're using node 16.9 or newer, corepack is available and can be used to install it. Just run `corepack enable` one time your terminal, and the correct version of `pnpm` will be available as you navigate to your project's directory.
+  - **NOTE**: This feature leverages the `packageManager` property in a project's `package.json` file.
+2. This repository comes with [asdf][asdf] `.tool-versions` files. You can use [asdf][asdf] to install the correct versions.
 
 ## Simple Module
 
@@ -55,10 +57,10 @@ Looking at the `node_modules` directory, you will see:
 - The `.bin` directory (for executables, like `prettier`, `webpack`, or `eslint`)
 - A somewhat flat directory of modules the project depends upon. Observe that the references to the packages are symbolic links. There is only one copy of each version of your module stored. They are stored in the pnpm store.
 
-Similar to npm's `npx` command, `pnpm` provides the `pnpx` command. Let's use it to run prettier:
+We can also invoke any of the tools in the `.bin` directory using `pnpm`. Let's use `pnpm exec` to run prettier:
 
 ```bash
-pnpx prettier --write \"**/*\"
+pnpm exec prettier --write .
 ```
 
 ### Advantages of `pnpm`
@@ -77,13 +79,13 @@ We'll talk about the advantages in a bit, but let's first see how to work with c
 Add changesets to the project:
 
 ```bash
-pnpm add @changesets/cli
+pnpm add -D @changesets/cli # -D is an alternative to --save-dev
 ```
 
 Initialize changesets for this project:
 
 ```bash
-pnpx changeset init
+pnpm changeset init # in many cases, the exec command is not needed.
 ```
 
 The command will create a `.changeset` directory, which you'll want to include in your repository, along with a couple of files:
@@ -94,14 +96,14 @@ The command will create a `.changeset` directory, which you'll want to include i
 Now that we have changsets installed in the project, let's add a changeset note to accompany our changes:
 
 ```bash
-pnpx changeset
+pnpm changeset
 ```
 
 Select the impact level of the changes (patch, minor, major), and enter a brief description, and a changeset file will be created. Let's take a look at the file that was created. The file is a markdown file with a randomly generated name.
 
 ```md
 ---
-"@bridge/simple": patch
+"@lund0n/simple": patch
 ---
 
 More changes
@@ -124,7 +126,7 @@ module.exports = function (value) {
 
 ```bash
 git add .
-pnpx changeset
+pnpm changeset
 ```
 
 Let's make the new changeset a major change this time. Commit the changes (and changeset).
@@ -132,7 +134,7 @@ Let's make the new changeset a major change this time. Commit the changes (and c
 Now, suppose we want to cut a release:
 
 ```bash
-pnpx changeset version
+pnpm changeset version
 ```
 
 This will:
@@ -236,7 +238,7 @@ pnpm recursive run test
 If we want to target a subset of projects, we can use the `--filter` parameter:
 
 ```bash
-pnpm --filter @bridge/bridge-prettier-config run test
+pnpm --filter @lund0n/lund0n-prettier-config run test
 ```
 
 Note that it provides autocomplete support on the filter parameter.
@@ -253,15 +255,15 @@ pnpm test # also npm test works here
 Since we just created this project, and have some modules to publish, let's create a changeset:
 
 ```
-pnpx changeset
+pnpm changeset
 ```
 
 Notice that there's a difference here. It asks which packages we want to include in the changeset, and how to treat each one. The changeset also looks a little different:
 
 ```md
 ---
-"@bridge/bridge-prettier-config": major
-"@bridge/change-case": minor
+"@lund0n/lund0n-prettier-config": major
+"@lund0n/change-case": minor
 ---
 
 Initial release of all packages.
@@ -272,7 +274,7 @@ It includes all package(s) that are part of the changeset. If you had a change t
 Let's version and publish the changes (after commiting our last changes):
 
 ```bash
-pnpx changeset version
+pnpm changeset version
 ```
 
 You'll notice the following:
@@ -296,7 +298,7 @@ It will publish each of the modules that isn't already published.
 Let's implement the function in the `change-case` project:
 
 ```bash
-pnpm --filter @bridge/change-case add lodash
+pnpm --filter @lund0n/change-case add lodash
 ```
 
 It will add the dependency just to the `change-case` project.
@@ -315,7 +317,7 @@ module.exports = function (val) {
 Let's add one more changeset, then commit and version it:
 
 ```bash
-pnpx changeset
+pnpm changeset
 ```
 
 _NOTE_: Usually, it knows which packages have changed. I think that it's a bug in doing all of the changesets locally.
@@ -323,7 +325,7 @@ _NOTE_: Usually, it knows which packages have changed. I think that it's a bug i
 ```bash
 git add .
 git commit -m "feat: add change-case implementation"
-pnpx changeset version
+pnpm changeset version
 ```
 
 Notice that it only updated the packages that have been impacted by the current set of changesets.
@@ -338,6 +340,7 @@ pnpm recursive publish
 
 That's it! 🎉
 
+[asdf]: https://asdf-vm.com/
 [changesets-cli]: https://github.com/atlassian/changesets/blob/master/packages/cli/README.md
 [changesets-details]: https://github.com/atlassian/changesets/blob/master/docs/detailed-explanation.md
 [pnpm]: https://pnpm.js.org/en/

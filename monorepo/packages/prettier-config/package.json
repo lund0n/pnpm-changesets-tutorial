@@ -1,5 +1,5 @@
 {
-  "name": "@bridge/bridge-prettier-config",
+  "name": "@lund0n/lund0n-prettier-config",
   "version": "0.0.0",
   "description": "Prettier configuration",
   "main": "src/index.js",

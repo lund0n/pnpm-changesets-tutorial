@@ -1,5 +1,5 @@
 {
-  "name": "@bridge/change-case",
+  "name": "@lund0n/change-case",
   "version": "0.0.0",
   "description": "A simple case-changing function",
   "main": "src/index.js",

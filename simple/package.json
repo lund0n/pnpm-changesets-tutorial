@@ -1,5 +1,5 @@
 {
-  "name": "@bridge/simple",
+  "name": "@lund0n/simple",
   "version": "0.0.0",
   "description": "A simple module",
   "main": "src/index.js",
@@ -10,6 +10,7 @@
     "registry": "http://localhost:4873"
   },
   "license": "UNLICENSED",
+  "packageManager": "pnpm@7.13.4",
   "prettier": {
     "proseWrap": "always",
     "semi": false,
