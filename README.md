@@ -153,7 +153,7 @@ git commit -m "chore: release"
 Then, publish the library:
 
 ```bash
-pnpm publish
+pnpm changeset publish
 ```
 
 Open the Verdaccio UI (http://localhost:4873/) to view your module.
@@ -161,8 +161,8 @@ Open the Verdaccio UI (http://localhost:4873/) to view your module.
 For future releases, the flow is basically the same:
 
 - Make your code changes, adding a changeset to accompany each group of changes.
-- Cut a version using `pnpx changeset version`
-- Once everything is merged, `pnpm publish` to publish the new module.
+- Cut a version using `pnpm changeset version`
+- Once everything is merged, `pnpm changeset publish` to publish the new module.
 
 _NOTE_: Regardless of whether you work on code that is published as a npm module or not should not matter. Using a changeset to help create a versioned changelog of what you've changed in the codebase can be valuable. Just omit the last step in the flow.
 
@@ -288,7 +288,7 @@ Let's commit the versions, then publish:
 ```bash
 git add .
 git commit -m "chore: release"
-pnpm recursive publish
+pnpm changeset publish
 ```
 
 It will publish each of the modules that isn't already published.
@@ -335,7 +335,7 @@ Finally, let's commit the new version and publish it:
 ```bash
 git add .
 git commit -m "chore: release"
-pnpm recursive publish
+pnpm changeset publish
 ```
 
 That's it! 🎉
